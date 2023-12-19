@@ -17,21 +17,28 @@ class _QuestionPageState extends State<QuestionPage> {
 
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            currentQuestion.text,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          AnswerButton(onTap: () {}, answerText: currentQuestion.answers[0]),
-          AnswerButton(onTap: () {}, answerText: currentQuestion.answers[1]),
-          AnswerButton(onTap: () {}, answerText: currentQuestion.answers[2]),
-          AnswerButton(onTap: () {}, answerText: currentQuestion.answers[3]),
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            //children[] just want widgets in it no other lists are allowed
+            // spreading technique - answer buttons from the list are pulled out and
+            //placed as individual comma separated answer buttons
+            ...currentQuestion.getShuffledAnswers().map((answer) {
+              return AnswerButton(onTap: () {}, answerText: answer);
+            }),
+          ],
+        ),
       ),
     );
   }
