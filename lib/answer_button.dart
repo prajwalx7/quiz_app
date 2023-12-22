@@ -9,17 +9,28 @@ class AnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-        backgroundColor: const Color(0x000174BE),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
+    return Padding(
+      padding: const EdgeInsets.only(
+          bottom: 8.0), //adjust spacing between buttons here
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 40), // adjust spacing inside button here
+          backgroundColor: const Color(0x000174BE),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+        ),
+
+        //widget responsible for displaying text inside ans button
+        child: Text(
+          answerText,
+          textAlign: TextAlign.center,
         ),
       ),
-      child: Text(answerText),
     );
   }
 }
