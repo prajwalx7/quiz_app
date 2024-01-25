@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/QuizData/questions.dart';
-import 'package:quiz_app/answer_button.dart';
+import 'package:quiz_app/models/answer_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class QuestionPage extends StatefulWidget {
-  const QuestionPage({super.key});
+class QuestionScreen extends StatefulWidget {
+  const QuestionScreen({
+    super.key,
+    required this.onSelectAnswer,
+  });
+
+  final void Function(String answer) onSelectAnswer;
+
   @override
   State<StatefulWidget> createState() {
     return _QuestionPageState();
   }
 }
 
-class _QuestionPageState extends State<QuestionPage> {
+class _QuestionPageState extends State<QuestionScreen> {
   var currentQuestionIndex = 0;
 
-  void answerQuestion() {
-    // currentQuestionIndex = currentQuestionIndex + 1;
-    // currentQuestionIndex += 1;
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
     setState(() {
-      currentQuestionIndex++; //increments value by 1
+      currentQuestionIndex++;
     });
   }
 
@@ -50,7 +55,12 @@ class _QuestionPageState extends State<QuestionPage> {
             // spreading technique - answer buttons from the list are pulled out and
             //placed as individual comma separated answer buttons
             ...currentQuestion.getShuffledAnswers().map((answer) {
-              return AnswerButton(onTap: answerQuestion, answerText: answer);
+              return AnswerButton(
+                answerText: answer,
+                onTap: () {
+                  answerQuestion(answer);
+                },
+              );
               //passing function as a value (onTap)
             }),
           ],
