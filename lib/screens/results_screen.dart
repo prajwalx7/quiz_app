@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/QuizData/questions.dart';
 import 'package:quiz_app/models/questions_summary.dart';
+import 'package:quiz_app/quiz.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({super.key, required this.chosenAnswers});
@@ -31,39 +32,39 @@ class ResultsScreen extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      child: Container(
-        margin: const EdgeInsets.all(50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'you answered $numCorrectQuestions out of $numTotalQuestions questions correctly',
-              style: const TextStyle(color: Colors.white),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'you answered $numCorrectQuestions out of $numTotalQuestions questions correctly',
+            style: const TextStyle(color: Colors.white),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          QuestionsSummary(summaryData),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => const Quiz()));
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(251, 255, 255, 255),
+              elevation: 8.0,
             ),
-            const SizedBox(
-              height: 30,
+            icon: const Icon(
+              Icons.refresh,
+              color: Colors.black,
             ),
-            QuestionsSummary(summaryData),
-            const SizedBox(
-              height: 30,
+            label: const Text(
+              'Restart Quiz',
+              style: TextStyle(color: Colors.black),
             ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(251, 255, 255, 255),
-                elevation: 8.0,
-              ),
-              icon: const Icon(
-                Icons.refresh,
-                color: Colors.black,
-              ),
-              label: const Text(
-                'Restart Quiz',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
